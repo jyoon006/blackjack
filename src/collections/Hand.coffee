@@ -4,10 +4,12 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    if @.scores()[0] > 21 
-      console.log ('hi') 
-    else if @.scores()[0] < 21 
+    if @.scores()[0] < 21 
       @add(@deck.pop())
+      if @.scores()[0] > 21 
+        $('.message h2').text 'You busted & lost!'
+    # else if @.scores()[0] > 21 
+    #   $('.message h2').text 'BUSTED'
                                                                                                                                                                                              
 
   hasAce: -> @reduce (memo, card) ->
@@ -29,5 +31,5 @@ class window.Hand extends Backbone.Collection
     while @.scores()[0] < 17
       @add(@deck.pop())
       if @.scores()[0] > 21
-        console.log('bust')
+        $('.message h2').text 'Dealer busted, you win!'
 

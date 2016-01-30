@@ -9,7 +9,7 @@ window.AppView = (function(superClass) {
     return AppView.__super__.constructor.apply(this, arguments);
   }
 
-  AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
+  AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <button class="newgame">New Game</button> <div class="message"></div> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
 
   AppView.prototype.events = {
     'click .hit-button': function() {
@@ -17,6 +17,9 @@ window.AppView = (function(superClass) {
     },
     'click .stand-button': function() {
       return this.model.get('dealerHand').stand();
+    },
+    'click .newgame': function() {
+      return document.location.href = "";
     }
   };
 
@@ -30,7 +33,10 @@ window.AppView = (function(superClass) {
     this.$('.player-hand-container').html(new HandView({
       collection: this.model.get('playerHand')
     }).el);
-    return this.$('.dealer-hand-container').html(new HandView({
+    this.$('.dealer-hand-container').html(new HandView({
+      collection: this.model.get('dealerHand')
+    }).el);
+    return this.$('.message').html(new Message({
       collection: this.model.get('dealerHand')
     }).el);
   };
