@@ -41,7 +41,18 @@ window.Hand = (function(superClass) {
   };
 
   Hand.prototype.stand = function() {
-    return this.at(0).flip();
+    var results;
+    this.at(0).flip();
+    results = [];
+    while (this.scores()[0] < 17) {
+      this.add(this.deck.pop());
+      if (this.scores()[0] > 21) {
+        results.push(console.log('bust'));
+      } else {
+        results.push(void 0);
+      }
+    }
+    return results;
   };
 
   return Hand;

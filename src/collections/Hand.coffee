@@ -26,5 +26,8 @@ class window.Hand extends Backbone.Collection
 
   stand: ->
     @.at(0).flip()
-
+    while @.scores()[0] < 17
+      @add(@deck.pop())
+      if @.scores()[0] > 21
+        console.log('bust')
 
