@@ -37,7 +37,7 @@ window.AppView = (function(superClass) {
       collection: this.model.get('dealerHand')
     }).el);
     return this.$('.message').html(new Message({
-      collection: this.model.get('dealerHand')
+      model: this.model
     }).el);
   };
 

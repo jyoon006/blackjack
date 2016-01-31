@@ -22,6 +22,10 @@ window.App = (function(superClass) {
     return this.set('dealerHand', deck.dealDealer());
   };
 
+  App.prototype.hit = function() {
+    return this.trigger('hit', this);
+  };
+
   return App;
 
 })(Backbone.Model);

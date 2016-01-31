@@ -11,10 +11,15 @@ window.Message = (function(superClass) {
 
   Message.prototype.className = 'message';
 
-  Message.prototype.template = _.template('<h2></h2>');
+  Message.prototype.template = _.template('<h2>New Game</h2>');
 
   Message.prototype.initialize = function() {
-    this.collection.on('add remove change', (function(_this) {
+    this.model.get('playerHand').on('add remove change', (function(_this) {
+      return function() {
+        return _this.render();
+      };
+    })(this));
+    this.model.get('dealerHand').on('add remove change', (function(_this) {
       return function() {
         return _this.render();
       };
@@ -25,7 +30,17 @@ window.Message = (function(superClass) {
   Message.prototype.render = function() {
     this.$el.children().detach();
     this.$el.html(this.template);
-    return this.$('h2').text('New Game');
+    if (this.model.get('playerHand').scores()[0] > 21 && this.model.get('playerHand').scores()[1] > 21) {
+      return $('.message h2').text('You busted & lost!');
+    } else if (this.model.get('dealerHand').scores()[0] > 21 && this.model.get('dealerHand').scores()[0] > 21) {
+      return $('.message h2').text('Dealer busted');
+    } else if (this.model.get('dealerHand').scores()[1] > this.model.get('playerHand').scores()[1] && this.model.get('playerHand').scores()[1] < 22 && this.model.get('dealerHand').scores()[1] < 22) {
+      return $('.message h2').text('dealer won');
+    } else if (this.model.get('dealerHand').scores()[1] < this.model.get('playerHand').scores()[1] && this.model.get('dealerHand').scores()[0] > 16 && this.model.get('playerHand').scores()[1] < 22) {
+      return $('.message h2').text('player won');
+    } else if (this.model.get('dealerHand').scores()[1] === this.model.get('playerHand').scores()[1]) {
+      return $('.message h2').text('tied');
+    }
   };
 
   return Message;

@@ -19,9 +19,7 @@ window.Hand = (function(superClass) {
   Hand.prototype.hit = function() {
     if (this.scores()[0] < 21) {
       this.add(this.deck.pop());
-      if (this.scores()[0] > 21) {
-        return $('.message h2').text('You busted & lost!');
-      }
+      return this.last();
     }
   };
 
@@ -46,12 +44,7 @@ window.Hand = (function(superClass) {
     this.at(0).flip();
     results = [];
     while (this.scores()[0] < 17) {
-      this.add(this.deck.pop());
-      if (this.scores()[0] > 21) {
-        results.push($('.message h2').text('Dealer busted, you win!'));
-      } else {
-        results.push(void 0);
-      }
+      results.push(this.add(this.deck.pop()));
     }
     return results;
   };

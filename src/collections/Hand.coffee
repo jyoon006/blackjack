@@ -6,10 +6,11 @@ class window.Hand extends Backbone.Collection
   hit: ->
     if @.scores()[0] < 21 
       @add(@deck.pop())
-      if @.scores()[0] > 21 
-        $('.message h2').text 'You busted & lost!'
+      # if @.scores()[0] > 21 
+      #   $('.message h2').text 'You busted & lost!'
     # else if @.scores()[0] > 21 
     #   $('.message h2').text 'BUSTED'
+      @last()
                                                                                                                                                                                              
 
   hasAce: -> @reduce (memo, card) ->
@@ -30,6 +31,8 @@ class window.Hand extends Backbone.Collection
     @.at(0).flip()
     while @.scores()[0] < 17
       @add(@deck.pop())
-      if @.scores()[0] > 21
-        $('.message h2').text 'Dealer busted, you win!'
+      
+      # if @.scores()[0] > 21
+      #   $('.message h2').text 'Dealer busted, you win!'
 
+        

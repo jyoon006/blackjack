@@ -14,3 +14,7 @@
 .hand {
   overflow: auto;
 }
+
+.message {
+  height: 20px;
+}
